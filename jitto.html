@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+        <title>Portfolio | Jitto</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+            }
+            .container-projects {
+                width: 70%;
+                margin: auto;
+                margin-top: 30px;
+                padding: 20px;
+                background: #fff;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                position: relative;
+            }
+            h1, h2 {
+                color: #333;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            p {
+                padding: 10px 80px 40px 20px; /*top right bottom left*/
+                line-height: 1.8;
+            }
+            ul, li{
+                margin: 2px 100px 1px 20px; /*top right bottom left*/
+                line-height: 1.8;
+            }
+            section {
+                margin-bottom: 30px;
+            }
+            img {
+                width: 100%;
+                max-width: 600px;
+                display: block;
+                margin: 2% 20% 5% 20%;
+                border-radius: 8px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+            img:hover {
+                transform: scale(1.02);
+            }
+            .back-button {
+                position: fixed;
+                top: 20px;
+                left: 15px;
+                background-color: #5e2fd7;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-size: 16px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease;
+                z-index: 999;
+            }
+            .back-button:hover {
+                background-color: #220f52;
+            }
+            
+            /* استایل برای مودال نمایش عکس تمام صفحه */
+            .image-modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+            
+            .modal-content {
+                max-width: 90%;
+                max-height: 90%;
+                margin: auto;
+                display: block;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                object-fit: contain; /* این خط اضافه شده */
+            }
+            
+            .close-modal {
+                position: absolute;
+                top: 25px;
+                right: 35px;
+                color: white;
+                font-size: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1001;
+            }
+            
+            .close-modal:hover {
+                color: #ccc;
+            }
+            .top-footer p {
+                padding: 0;
+            }
+            .footer-menu {
+                margin: 0;
+            }
+            .footer-menu li {
+                margin-inline: 0;
+            }
+            .bottom-footer p {
+                padding: 0;
+            }
+
+            /* جلوگیری از اسکرول هنگام باز بودن مودال */
+            body.no-scroll {
+                overflow: hidden;
+            }
+        
+            /* ==================== RESPONSIVE DESIGN FOR PROJECT PAGES ==================== */
+            @media (max-width: 1200px) {
+                .container-projects {
+                    width: 80%;
+                    margin-top: 20px;
+                }
+                
+                p {
+                    padding: 10px 40px 30px 20px;
+                }
+                
+                ul, li {
+                    margin: 2px 60px 1px 20px;
+                }
+                
+                img {
+                    margin: 2% 15% 5% 15%;
+                }
+            }
+
+            @media (max-width: 900px) {
+                .container-projects {
+                    width: 90%;
+                    padding: 15px;
+                }
+                
+                p {
+                    padding: 10px 20px 25px 20px;
+                }
+                
+                ul, li {
+                    margin: 2px 30px 1px 20px;
+                }
+                
+                img {
+                    margin: 2% 10% 5% 10%;
+                    max-width: 80%;
+                }
+                
+                h1, h2 {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container-projects {
+                    width: 95%;
+                    margin-top: 15px;
+                    padding: 12px;
+                }
+                
+                p {
+                    padding: 8px 15px 20px 15px;
+                    font-size: 14px;
+                }
+                
+                ul, li {
+                    margin: 2px 20px 1px 15px;
+                    font-size: 14px;
+                }
+                
+                img {
+                    margin: 2% 5% 4% 5%;
+                    max-width: 90%;
+                }
+                
+                h1 {
+                    font-size: 24px;
+                    padding: 0 15px;
+                }
+                
+                h2 {
+                    font-size: 20px;
+                    padding: 0 15px;
+                }
+                
+                /* بهبود back button برای موبایل */
+                .back-button {
+                    top: 15px;
+                    left: 10px;
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    z-index: 1000;
+                }
+                
+                /* استایل‌های responsive برای مودال */
+                .close-modal {
+                    top: 15px;
+                    right: 25px;
+                    font-size: 30px;
+                }
+                
+                .modal-content {
+                    max-width: 95%;
+                    max-height: 80%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .container-projects {
+                    width: 100%;
+                    margin-top: 10px;
+                    border-radius: 0;
+                    box-shadow: none;
+                }
+                
+                p {
+                    padding: 8px 12px 18px 12px;
+                    font-size: 13px;
+                    line-height: 1.5;
+                }
+                
+                ul, li {
+                    margin: 2px 15px 1px 12px;
+                    font-size: 13px;
+                }
+                
+                img {
+                    margin: 2% 2% 4% 2%;
+                    max-width: 96%;
+                    border-radius: 6px;
+                }
+                
+                h1 {
+                    font-size: 22px;
+                    padding: 0 12px;
+                }
+                
+                h2 {
+                    font-size: 18px;
+                    padding: 0 12px;
+                }
+                
+                section {
+                    margin-bottom: 20px;
+                }
+                
+                /* بهبود فواصل برای موبایل */
+                .back-button {
+                    top: 10px;
+                    left: 8px;
+                    padding: 6px 12px;
+                    font-size: 12px;
+                }
+                
+                /* استایل‌های responsive برای مودال */
+                .close-modal {
+                    top: 10px;
+                    right: 15px;
+                    font-size: 25px;
+                }
+                
+                .modal-content {
+                    max-width: 98%;
+                    max-height: 75%;
+                }
+            }
+
+            /* جلوگیری از اسکرول افقی در موبایل */
+            @media (max-width: 768px) {
+                body {
+                    overflow-x: hidden;
+                }
+                
+                .container-projects {
+                    overflow-x: hidden;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <a href="index.html" class="back-button">Back</a>
+        <div class="container-projects">
+            <h1>Project Title: Jitto - UI/UX Design</h1> 
+            <p>As part of a collaborative design team for <strong>Jitto Company</strong>, a produce delivery service, I played a key role in crafting the user experience for their digital platform. Our goal was to create a seamless and visually engaging interface that optimized the signup process and enhanced the post-login user journey. Using <strong>Figma</strong>, I designed over 30 wireframe pages, ensuring intuitive navigation and a frictionless experience for users.</p> 
+            <img src="assets/img/ui-ux/jitto-detail.PNG" alt="Jitto Detail" onclick="openModal(this)" />
+            
+            <h2>Project Scope & Objectives</h2> 
+            <p>The project focused on two essential aspects of Jitto’s platform:</p> 
+            <ul> 
+                <li><strong>Signup Process:</strong> Designing an intuitive, user-friendly signup flow to maximize conversions.</li> 
+                <li><strong>Post-Login Experience:</strong> Creating an engaging landing page where users could efficiently navigate orders, track deliveries, and explore produce options.</li> 
+            </ul> 
+            <p>The primary objective was to <strong>streamline the user journey</strong>, ensuring new customers could easily onboard while returning users had quick access to essential features.</p> 
+              
+            <section>
+            <h2>Design Process</h2> 
+            <p>To achieve an effective and user-friendly design, we followed a structured approach:</p> 
+            <h3>User Research & Strategy</h3> 
+            <ul> 
+                <li><strong>Stakeholder Collaboration:</strong> Worked closely with Jitto’s team to understand business goals and customer pain points.</li> 
+                <li><strong>Competitor Analysis:</strong> Analyzed similar delivery platforms to identify best practices and potential UX improvements.</li> 
+                <li><strong>User Flow Mapping:</strong> Outlined step-by-step interactions for both new and returning users to minimize friction.</li> 
+            </ul> 
+            </section>
+            <section>
+                <h3>Wireframing & UI Design</h3> 
+                <p>Although the designs could not be fully prototyped due to the <strong> NDA</strong>, I continuously refined them through internal reviews and testing:</p> 
+                <p>Using <strong>Figma</strong>, we developed detailed wireframes to visualize the structure and functionality of the platform:</p> 
+                <ul> 
+                    <li><strong>Signup Flow:</strong> Designed an intuitive multi-step form with clear progress indicators and minimal friction.</li> 
+                    <li><strong>Dashboard Layout:</strong> Created an easily navigable post-login landing page, prioritizing order tracking and produce selection.</li> 
+                    <li><strong>Visual Hierarchy:</strong> Ensured key actions like placing an order and checking deliveries were prominently featured.</li> 
+                </ul> 
+            </section>
+
+                 <section>
+                <h2>Collaboration & Iterations</h2> 
+                <p>Since this was a team-driven project, collaboration was key:</p> 
+                <ul> 
+                    <li><strong>Design Reviews:</strong> Conducted iterative feedback sessions to refine layouts and improve usability.</li> 
+                    <li><strong>Prototyping & Testing:</strong> Created interactive prototypes in Figma for internal testing and refinement.</li> 
+                    <li><strong>Responsive Design:</strong> Ensured the wireframes were optimized for both desktop and mobile experiences.</li> </ul> 
+                
+                    
+                    <section>
+                    <h2>Results & Impact</h2> 
+                    <p>The final wireframes and UI designs led to significant improvements in the platform's usability:</p> 
+                    <ul> 
+                        <li><strong>Simplified Signup:</strong> The redesigned flow improved completion rates, reducing user drop-off.</li> 
+                        <li><strong>Enhanced User Engagement:</strong> A clear, intuitive dashboard increased interaction with key features.</li> 
+                        <li><strong>Scalable Design System:</strong> The wireframes provided a solid foundation for future UI enhancements and development.</li> 
+                    </ul> 
+                    </section>
+                  
+        </div>
+        
+        <!-- مودال نمایش عکس تمام صفحه -->
+        <div id="imageModal" class="image-modal" onclick="closeModal()">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <!-- --------------- FOOTER --------------- -->
+        <footer>
+            <div class="top-footer">
+                <p>Maryam Ferdavan Khorasani</p>
+            </div>
+            <div class="middle-footer">
+                <ul class="footer-menu">
+                    <li class="footer_menu_list">
+                        <a href="index.html#home">Home</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#about">About</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#projects">Projects</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-social-icons">
+                <a href="https://www.linkedin.com/in/maryam-ferdavan-khorasani-b03497255//"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
+                <a href="https://github.com/Maryamfkh97"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
+            </div>
+            <div class="bottom-footer">
+                <p>Copyright &copy; <a href="index.html" style="text-decoration: none;">Maryam Ferdavan Khorasani</a> - All rights reserved</p>
+            </div>
+        </footer>
+        
+        <script>
+            // تابع باز کردن مودال
+            function openModal(imgElement) {
+                const modal = document.getElementById("imageModal");
+                const modalImg = document.getElementById("modalImage");
+                
+                if (modal && modalImg) {
+                    modal.style.display = "flex";
+                    modalImg.src = imgElement.src;
+                    
+                    // تنظیم object-fit بر اساس نسبت ابعاد عکس
+                    const img = new Image();
+                    img.src = imgElement.src;
+                    img.onload = function() {
+                        modalImg.style.objectFit = "contain";
+                    };
+                    
+                    // جلوگیری از اسکرول صفحه
+                    document.body.classList.add("no-scroll");
+                    
+                    // جلوگیری از انتشار event به parent element
+                    if (event) {
+                        event.stopPropagation();
+                    }
+                }
+            }
+            
+            // تابع بستن مودال
+            function closeModal() {
+                const modal = document.getElementById("imageModal");
+                if (modal) {
+                    modal.style.display = "none";
+                    
+                    // بازگشت اسکرول به حالت عادی
+                    document.body.classList.remove("no-scroll");
+                }
+            }
+            
+            // بستن با کلید ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Escape") {
+                    closeModal();
+                }
+            });
+            
+            // جلوگیری از بستن مودال هنگام کلیک روی عکس
+            document.addEventListener('DOMContentLoaded', function() {
+                const modalImage = document.getElementById('modalImage');
+                if (modalImage) {
+                    modalImage.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                    });
+                }
+            });
+        </script>
+
+    </body>
+</html>

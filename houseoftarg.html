@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/x-icon">
+        <title>Portfolio | House of Targ</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+            }
+            .container-projects {
+                width: 70%;
+                margin: auto;
+                margin-top: 30px;
+                padding: 20px;
+                background: #fff;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                position: relative;
+            }
+            h1, h2 {
+                color: #333;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            p {
+                padding: 10px 80px 40px 20px; /*top right bottom left*/
+                line-height: 1.8;
+            }
+            ul, li{
+                margin: 2px 100px 1px 20px; /*top right bottom left*/
+                line-height: 1.8;
+            }
+            section {
+                margin-bottom: 30px;
+            }
+            img {
+                width: 100%;
+                max-width: 600px;
+                display: block;
+                margin: 2% 20% 5% 20%;
+                border-radius: 8px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                transition: transform 0.3s ease;
+            }
+            img:hover {
+                transform: scale(1.02);
+            }
+            .back-button {
+                position: fixed;
+                top: 20px;
+                left: 15px;
+                background-color: #5e2fd7;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 50px;
+                text-decoration: none;
+                font-size: 16px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease;
+                z-index: 999;
+            }
+            .back-button:hover {
+                background-color: #220f52;
+            }
+            
+            /* استایل برای مودال نمایش عکس تمام صفحه */
+            .image-modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.95);
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+            
+            .modal-content {
+                max-width: 90%;
+                max-height: 90%;
+                margin: auto;
+                display: block;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+                object-fit: contain; /* این خط اضافه شده */
+            }
+            
+            .close-modal {
+                position: absolute;
+                top: 25px;
+                right: 35px;
+                color: white;
+                font-size: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 1001;
+            }
+            
+            .close-modal:hover {
+                color: #ccc;
+            }
+            .top-footer p {
+                padding: 0;
+            }
+            .footer-menu {
+                margin: 0;
+            }
+            .footer-menu li {
+                margin-inline: 0;
+            }
+            .bottom-footer p {
+                padding: 0;
+            }
+
+            /* جلوگیری از اسکرول هنگام باز بودن مودال */
+            body.no-scroll {
+                overflow: hidden;
+            }
+        
+            /* ==================== RESPONSIVE DESIGN FOR PROJECT PAGES ==================== */
+            @media (max-width: 1200px) {
+                .container-projects {
+                    width: 80%;
+                    margin-top: 20px;
+                }
+                
+                p {
+                    padding: 10px 40px 30px 20px;
+                }
+                
+                ul, li {
+                    margin: 2px 60px 1px 20px;
+                }
+                
+                img {
+                    margin: 2% 15% 5% 15%;
+                }
+            }
+
+            @media (max-width: 900px) {
+                .container-projects {
+                    width: 90%;
+                    padding: 15px;
+                }
+                
+                p {
+                    padding: 10px 20px 25px 20px;
+                }
+                
+                ul, li {
+                    margin: 2px 30px 1px 20px;
+                }
+                
+                img {
+                    margin: 2% 10% 5% 10%;
+                    max-width: 80%;
+                }
+                
+                h1, h2 {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container-projects {
+                    width: 95%;
+                    margin-top: 15px;
+                    padding: 12px;
+                }
+                
+                p {
+                    padding: 8px 15px 20px 15px;
+                    font-size: 14px;
+                }
+                
+                ul, li {
+                    margin: 2px 20px 1px 15px;
+                    font-size: 14px;
+                }
+                
+                img {
+                    margin: 2% 5% 4% 5%;
+                    max-width: 90%;
+                }
+                
+                h1 {
+                    font-size: 24px;
+                    padding: 0 15px;
+                }
+                
+                h2 {
+                    font-size: 20px;
+                    padding: 0 15px;
+                }
+                
+                /* بهبود back button برای موبایل */
+                .back-button {
+                    top: 15px;
+                    left: 10px;
+                    padding: 8px 15px;
+                    font-size: 14px;
+                    z-index: 1000;
+                }
+                
+                /* استایل‌های responsive برای مودال */
+                .close-modal {
+                    top: 15px;
+                    right: 25px;
+                    font-size: 30px;
+                }
+                
+                .modal-content {
+                    max-width: 95%;
+                    max-height: 80%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .container-projects {
+                    width: 100%;
+                    margin-top: 10px;
+                    border-radius: 0;
+                    box-shadow: none;
+                }
+                
+                p {
+                    padding: 8px 12px 18px 12px;
+                    font-size: 13px;
+                    line-height: 1.5;
+                }
+                
+                ul, li {
+                    margin: 2px 15px 1px 12px;
+                    font-size: 13px;
+                }
+                
+                img {
+                    margin: 2% 2% 4% 2%;
+                    max-width: 96%;
+                    border-radius: 6px;
+                }
+                
+                h1 {
+                    font-size: 22px;
+                    padding: 0 12px;
+                }
+                
+                h2 {
+                    font-size: 18px;
+                    padding: 0 12px;
+                }
+                
+                section {
+                    margin-bottom: 20px;
+                }
+                
+                /* بهبود فواصل برای موبایل */
+                .back-button {
+                    top: 10px;
+                    left: 8px;
+                    padding: 6px 12px;
+                    font-size: 12px;
+                }
+                
+                /* استایل‌های responsive برای مودال */
+                .close-modal {
+                    top: 10px;
+                    right: 15px;
+                    font-size: 25px;
+                }
+                
+                .modal-content {
+                    max-width: 98%;
+                    max-height: 75%;
+                }
+            }
+
+            /* جلوگیری از اسکرول افقی در موبایل */
+            @media (max-width: 768px) {
+                body {
+                    overflow-x: hidden;
+                }
+                
+                .container-projects {
+                    overflow-x: hidden;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <a href="index.html" class="back-button">Back</a>
+        <div class="container-projects">
+            <h1>Project Title: House of Targ Web Redesign</h1>
+            <p>In a project driven by creativity and a passion for enhancing the nightlife experience, I embarked on a journey to completely redesign the <strong>House of Targ</strong> bar's interactive web application in Ottawa. From <strong>low-fidelity sketches</strong> to a refined, high-fidelity prototype, every detail was crafted with <strong>Adobe XD</strong> to improve user engagement and provide a seamless browsing experience.</p>
+            <img src="assets/img/ui-ux/House of targ.png" alt="User Research" onclick="openModal(this)" />
+
+            <!-- ------------- user research ------------>
+            <section>
+                <h2>User Research</h2>
+                <p>Understanding the needs and expectations of House of Targ’s patrons was the foundation of this project. I conducted:</p>
+                <ul>
+                    <li><strong>Surveys & Interviews:</strong> Engaged with customers and staff to identify pain points in the current website.</li>
+                    <li><strong>Competitor Analysis:</strong> Analyzed similar nightlife venues to identify industry best practices.</li>
+                    <li><strong>User Personas:</strong> Created detailed personas representing different audience segments, including gamers, live music lovers, and first-time visitors.</li>
+                </ul>
+                <p>Through this research, I identified key challenges, such as <strong>difficult navigation, outdated visuals, and lack of mobile responsiveness.</strong></p>
+            </section>
+
+            <!-- ------------- Initial Design ------------>
+             <section>
+                <h2>Initial Design</h2>
+                <p>With insights gathered, I began sketching <strong>low-fidelity wireframes</strong> to outline the structure and user flow.</p>
+                <ul>
+                    <li><strong>Wireframing:</strong> Focused on <strong>clear navigation</strong>, event promotion, and an intuitive reservation system.</li>
+                    <li><strong>Color Scheme & Typography:</strong> Chose a bold, retro-inspired palette reflecting the arcade and pinball culture of House of Targ.</li>
+                    <li><strong>Visual Hierarchy:</strong> Ensured key sections like events, food menu, and game listings were <strong>easily accessible.</strong></li>
+                </ul>
+                <img src="assets/img/ui-ux/Houseoftarg-lofi.PNG" alt="User Research" onclick="openModal(this)" />
+            </section>
+            
+            <!-- ------------- WIREFRAMING ------------>
+            <section>
+                <h2>Wireframing</h2>
+                <p>Using <strong>Adobe XD</strong>, I transitioned from sketches to <strong>mid-fidelity wireframes</strong>, focusing on:</p>
+                <ul>
+                    <li><strong>Layout Optimization:</strong> Arranging elements to prioritize ease of use.</li>
+                    <li><strong>User Flow Mapping:</strong> Ensuring seamless transitions between different sections.</li>
+                    <li><strong>Mobile-First Approach:</strong> Designing for mobile responsiveness before expanding to desktop versions.</li>
+                </ul>
+                <p>Testing with a small user group helped refine the <strong>navigation structure</strong> before moving to high-fidelity prototyping.</p>
+
+                <img src="assets/img/ui-ux/Houseoftarg-hifi.PNG" alt="Wireframing" onclick="openModal(this)" />
+            </section>
+
+            <!-- ------------- prototyping ------------>
+            <section>
+                <h2>Prototyping</h2>
+                <p>Once the wireframes were validated, I built <strong>high-fidelity prototypes</strong> in <strong>Adobe XD</strong>, incorporating:</p>
+                <ul>
+                    <li><strong>Interactive Elements:</strong> Hover effects, button states, and seamless page transitions.</li>
+                    <li><strong>Dynamic Content Sections:</strong> Showcasing upcoming events, daily specials, and featured arcade games.</li>
+                    <li><strong>Visual Enhancements:</strong> Engaging imagery, custom icons, and bold typography to reflect the venue’s personality.</li>
+                </ul>
+                <p>This phase transformed static wireframes into an interactive, engaging experience that mimicked real-world usability.</p>
+            </section>
+            <!-- ------------- Testing ------------>
+            <section>
+            <h2>User Testing via Maze</h2>
+            <p>To validate the prototype, I conducted usability testing via <strong>Maze</strong>, where users performed specific tasks such as:</p>
+            <ul>
+                <li> Navigating to the event calendar</li>
+                <li> Reserving a table online</li>
+                <li> Exploring the arcade game selection</li>
+            </ul>
+            </section>
+
+            <!-- ------------- Final Design ------------>
+            <section>
+            <h2>Key Findings & Adjustments:</h2>
+            <ul>
+                <li>78% of users completed tasks successfully on the first attempt.</li>
+                <li>Some users found the CTA buttons too small → Adjusted size & contrast for better visibility.</li>
+                <li>Improved scrolling experience on mobile for better accessibility.</li>
+            </ul>
+            </section> 
+
+            <!-- ------------- RESULT ------------>
+            <section>
+            <h2>Results</h2>
+            <p>After iterating based on user feedback, the final design achieved <strong>a 20% increase in user engagement</strong>, leading to:</p>
+            <ul>
+                <li><strong>Higher event reservations</strong></li>
+                <li><strong>Increased time spent exploring arcade games & food menu</strong></li>
+                <li><strong>More mobile users interacting with the site</strong></li>
+            </ul>
+            </section>
+        </div>
+        
+        <!-- مودال نمایش عکس تمام صفحه -->
+        <div id="imageModal" class="image-modal" onclick="closeModal()">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <!-- --------------- FOOTER --------------- -->
+        <footer>
+            <div class="top-footer">
+                <p>Maryam Ferdavan Khorasani</p>
+            </div>
+            <div class="middle-footer">
+                <ul class="footer-menu">
+                    <li class="footer_menu_list">
+                        <a href="index.html#home">Home</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#about">About</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#projects">Projects</a>
+                    </li>
+                    <li class="footer_menu_list">
+                        <a href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-social-icons">
+                <a href="https://www.linkedin.com/in/maryam-ferdavan-khorasani-b03497255"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
+                <a href="https://github.com/Maryamfkh97"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
+            </div>
+            <div class="bottom-footer">
+                <p>Copyright &copy; <a href="index.html" style="text-decoration: none;">Maryam Ferdavan Khorasani</a> - All rights reserved</p>
+            </div>
+        </footer>
+
+        <script>
+            function openModal(imgElement) {
+                const modal = document.getElementById("imageModal");
+                const modalImg = document.getElementById("modalImage");
+                
+                modal.style.display = "flex";
+                modalImg.src = imgElement.src;
+                
+                // تنظیم object-fit بر اساس نسبت ابعاد عکس
+                const img = new Image();
+                img.src = imgElement.src;
+                img.onload = function() {
+                    const aspectRatio = this.width / this.height;
+                    if (aspectRatio > 1) {
+                        // عکس افقی
+                        modalImg.style.objectFit = "contain";
+                    } else {
+                        // عکس عمودی
+                        modalImg.style.objectFit = "contain";
+                    }
+                };
+                
+                // جلوگیری از اسکرول صفحه
+                document.body.classList.add("no-scroll");
+                
+                // جلوگیری از انتشار event به parent element
+                event.stopPropagation();
+            }
+            
+            function closeModal() {
+                const modal = document.getElementById("imageModal");
+                modal.style.display = "none";
+                
+                // بازگشت اسکرول به حالت عادی
+                document.body.classList.remove("no-scroll");
+            }
+            
+            // بستن با کلید ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Escape") {
+                    closeModal();
+                }
+            });
+            
+            // جلوگیری از بستن مودال هنگام کلیک روی عکس
+            document.getElementById('modalImage').addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        </script>
+
+    </body>
+</html>
